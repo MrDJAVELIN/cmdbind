@@ -1,0 +1,28 @@
+{
+  "schemaVersion": 1,
+  "id": "cmdbind",
+  "version": "${version}",
+  "name": "CmdBind",
+  "description": "Command Binds",
+  "authors": [],
+  "contact": {},
+  "license": "All-Rights-Reserved",
+  "icon": "assets/cmdbind/icon.png",
+  "environment": "client",
+  "entrypoints": {
+    "fabric-datagen": [
+      "org.djavelin.cmdbind.client.CmdbindDataGenerator"
+    ],
+    "client": [
+      "org.djavelin.cmdbind.client.CmdbindClient"
+    ],
+    "main": [
+      "org.djavelin.cmdbind.Cmdbind"
+    ]
+  },
+  "depends": {
+    "fabricloader": ">=${loader_version}",
+    "fabric": "*",
+    "minecraft": "${minecraft_version}"
+  }
+}

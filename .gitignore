@@ -22,6 +22,5 @@ tmp/
 Thumbs.db
 
 run/
-fabric.mod.json
 *.jar
 logs/
