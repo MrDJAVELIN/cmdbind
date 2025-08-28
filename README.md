@@ -1,4 +1,4 @@
-<img src="https://github.com/MrDJAVELIN/cmdbind/blob/main/src/main/resources/assets/cmdbind/icon.png">
+<img src="https://github.com/MrDJAVELIN/cmdbind/blob/main/src/main/resources/assets/cmdbind/icon.png" width="200px" height="auto">
 
 # CmdBind
 
