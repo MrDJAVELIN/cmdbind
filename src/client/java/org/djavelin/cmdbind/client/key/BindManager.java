@@ -1,14 +1,8 @@
-package org.djavelin.cmdbind.util;
+package org.djavelin.cmdbind.client.key;
 
-import com.google.common.reflect.TypeToken;
 import com.google.gson.Gson;
-import com.mojang.brigadier.CommandDispatcher;
-import com.mojang.brigadier.arguments.ArgumentType;
-import com.mojang.brigadier.arguments.StringArgumentType;
-import net.minecraft.server.command.CommandManager;
-import net.minecraft.server.command.ServerCommandSource;
-import net.minecraft.text.Text;
-import org.djavelin.cmdbind.key.ConfigUtil;
+import com.google.gson.reflect.TypeToken;
+import org.djavelin.cmdbind.client.util.ConfigUtil;
 
 import java.io.File;
 import java.lang.reflect.Type;
@@ -22,16 +16,16 @@ public class BindManager {
 
     public static void load() {
         if (FILE.exists()) {
-            Type type = new TypeToken<Map<String,String>>(){}.getType();
+            Type type = new TypeToken<Map<String, String>>(){}.getType();
             binds = ConfigUtil.readJson(FILE, type, new HashMap<>());
         }
     }
 
-    public static void save () {
+    public static void save() {
         ConfigUtil.writeJson(FILE, binds);
     }
 
-    public static void addBind (String key, String command) {
+    public static void addBind(String key, String command) {
         binds.put(key.toUpperCase(), command);
         save();
     }

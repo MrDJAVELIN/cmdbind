@@ -15,9 +15,6 @@
     ],
     "client": [
       "org.djavelin.cmdbind.client.CmdbindClient"
-    ],
-    "main": [
-      "org.djavelin.cmdbind.Cmdbind"
     ]
   },
   "depends": {

@@ -1,4 +1,4 @@
-package org.djavelin.cmdbind.util;
+package org.djavelin.cmdbind.client.command;
 
 import com.mojang.brigadier.CommandDispatcher;
 import com.mojang.brigadier.arguments.StringArgumentType;
@@ -6,6 +6,7 @@ import net.minecraft.command.CommandRegistryAccess;
 import net.minecraft.server.command.CommandManager;
 import net.minecraft.server.command.ServerCommandSource;
 import net.minecraft.text.Text;
+import org.djavelin.cmdbind.client.key.BindManager;
 
 public class BindCommand {
     public static void register(CommandDispatcher<ServerCommandSource> dispatcher,

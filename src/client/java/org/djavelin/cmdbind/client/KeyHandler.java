@@ -2,7 +2,7 @@ package org.djavelin.cmdbind.client;
 
 import net.minecraft.client.MinecraftClient;
 import net.minecraft.client.util.InputUtil;
-import org.djavelin.cmdbind.util.BindManager;
+import org.djavelin.cmdbind.client.key.BindManager;
 
 import java.util.HashSet;
 import java.util.Set;

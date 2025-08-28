@@ -1,4 +1,4 @@
-package org.djavelin.cmdbind.key;
+package org.djavelin.cmdbind.client.util;
 
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
