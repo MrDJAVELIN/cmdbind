@@ -19,18 +19,27 @@ public class BindCommand {
                                     String key = StringArgumentType.getString(ctx, "key");
                                     String command = StringArgumentType.getString(ctx, "command");
                                     BindManager.addBind(key, command);
+                                    ctx.getSource().sendFeedback(Text.literal(""));
+                                    ctx.getSource().sendFeedback(Text.literal("CmdBind"));
                                     ctx.getSource().sendFeedback(Text.literal("Bind created: " + key + " -> " + command));
+                                    ctx.getSource().sendFeedback(Text.literal(""));
                                     return 1;
                                 }))));
 
         dispatcher.register(ClientCommandManager.literal("listbinds")
                 .executes(ctx -> {
                     if (BindManager.getBinds().isEmpty()) {
+                        ctx.getSource().sendFeedback(Text.literal(""));
+                        ctx.getSource().sendFeedback(Text.literal("Binds:"));
                         ctx.getSource().sendFeedback(Text.literal("No bindings"));
+                        ctx.getSource().sendFeedback(Text.literal(""));
                     } else {
-                        BindManager.getBinds().forEach((k, v) ->
-                                ctx.getSource().sendFeedback(Text.literal(k + " -> " + v))
-                        );
+                        ctx.getSource().sendFeedback(Text.literal(""));
+                        ctx.getSource().sendFeedback(Text.literal("Binds:"));
+                        BindManager.getBinds().forEach((k, v) -> {
+                            ctx.getSource().sendFeedback(Text.literal(k + " -> " + v));
+                        });
+                        ctx.getSource().sendFeedback(Text.literal(""));
                     }
                     return 1;
                 }));
@@ -40,9 +49,15 @@ public class BindCommand {
                         .executes(ctx -> {
                             String key = StringArgumentType.getString(ctx, "key");
                             if (BindManager.removeBind(key)) {
+                                ctx.getSource().sendFeedback(Text.literal(""));
+                                ctx.getSource().sendFeedback(Text.literal("CmdBind"));
                                 ctx.getSource().sendFeedback(Text.literal("Bind deleted: " + key));
+                                ctx.getSource().sendFeedback(Text.literal(""));
                             } else {
+                                ctx.getSource().sendFeedback(Text.literal(""));
+                                ctx.getSource().sendFeedback(Text.literal("CmdBind"));
                                 ctx.getSource().sendFeedback(Text.literal("Bind not found"));
+                                ctx.getSource().sendFeedback(Text.literal(""));
                             }
                             return 1;
                         })));
