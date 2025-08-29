@@ -2,48 +2,47 @@ package org.djavelin.cmdbind.client.command;
 
 import com.mojang.brigadier.CommandDispatcher;
 import com.mojang.brigadier.arguments.StringArgumentType;
+import net.fabricmc.fabric.api.client.command.v2.ClientCommandManager;
+import net.fabricmc.fabric.api.client.command.v2.FabricClientCommandSource;
 import net.minecraft.command.CommandRegistryAccess;
-import net.minecraft.server.command.CommandManager;
-import net.minecraft.server.command.ServerCommandSource;
 import net.minecraft.text.Text;
 import org.djavelin.cmdbind.client.key.BindManager;
 
 public class BindCommand {
-    public static void register(CommandDispatcher<ServerCommandSource> dispatcher,
-                                CommandRegistryAccess registryAccess,
-                                CommandManager.RegistrationEnvironment env) {
+    public static void register(CommandDispatcher<FabricClientCommandSource> dispatcher,
+                                CommandRegistryAccess registryAccess) {
 
-        dispatcher.register(CommandManager.literal("createbind")
-                .then(CommandManager.argument("key", StringArgumentType.string())
-                        .then(CommandManager.argument("command", StringArgumentType.greedyString())
+        dispatcher.register(ClientCommandManager.literal("createbind")
+                .then(ClientCommandManager.argument("key", StringArgumentType.string())
+                        .then(ClientCommandManager.argument("command", StringArgumentType.greedyString())
                                 .executes(ctx -> {
                                     String key = StringArgumentType.getString(ctx, "key");
                                     String command = StringArgumentType.getString(ctx, "command");
                                     BindManager.addBind(key, command);
-                                    ctx.getSource().sendFeedback(() -> Text.literal("Bind created: " + key + " -> " + command), false);
+                                    ctx.getSource().sendFeedback(Text.literal("Bind created: " + key + " -> " + command));
                                     return 1;
                                 }))));
 
-        dispatcher.register(CommandManager.literal("listbinds")
+        dispatcher.register(ClientCommandManager.literal("listbinds")
                 .executes(ctx -> {
                     if (BindManager.getBinds().isEmpty()) {
-                        ctx.getSource().sendFeedback(() -> Text.literal("No bindings"), false);
+                        ctx.getSource().sendFeedback(Text.literal("No bindings"));
                     } else {
                         BindManager.getBinds().forEach((k, v) ->
-                                ctx.getSource().sendFeedback(() -> Text.literal(k + " -> " + v), false)
+                                ctx.getSource().sendFeedback(Text.literal(k + " -> " + v))
                         );
                     }
                     return 1;
                 }));
 
-        dispatcher.register(CommandManager.literal("deletebind")
-                .then(CommandManager.argument("key", StringArgumentType.string())
+        dispatcher.register(ClientCommandManager.literal("deletebind")
+                .then(ClientCommandManager.argument("key", StringArgumentType.string())
                         .executes(ctx -> {
                             String key = StringArgumentType.getString(ctx, "key");
                             if (BindManager.removeBind(key)) {
-                                ctx.getSource().sendFeedback(() -> Text.literal("Bind deleted: " + key), false);
+                                ctx.getSource().sendFeedback(Text.literal("Bind deleted: " + key));
                             } else {
-                                ctx.getSource().sendFeedback(() -> Text.literal("Bind not found"), false);
+                                ctx.getSource().sendFeedback(Text.literal("Bind not found"));
                             }
                             return 1;
                         })));
