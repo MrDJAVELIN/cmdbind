@@ -18,11 +18,18 @@ public class BindCommand {
                                 .executes(ctx -> {
                                     String key = StringArgumentType.getString(ctx, "key");
                                     String command = StringArgumentType.getString(ctx, "command");
-                                    BindManager.addBind(key, command);
-                                    ctx.getSource().sendFeedback(Text.literal(""));
-                                    ctx.getSource().sendFeedback(Text.literal("CmdBind"));
-                                    ctx.getSource().sendFeedback(Text.literal("Bind created: " + key + " -> " + command));
-                                    ctx.getSource().sendFeedback(Text.literal(""));
+                                    if (key.length() > 1) {
+                                        ctx.getSource().sendFeedback(Text.literal(""));
+                                        ctx.getSource().sendFeedback(Text.literal("CmdBind"));
+                                        ctx.getSource().sendFeedback(Text.literal("Incorrect key"));
+                                        ctx.getSource().sendFeedback(Text.literal(""));
+                                    } else {
+                                        BindManager.addBind(key, command);
+                                        ctx.getSource().sendFeedback(Text.literal(""));
+                                        ctx.getSource().sendFeedback(Text.literal("CmdBind"));
+                                        ctx.getSource().sendFeedback(Text.literal("Bind created: " + key + " -> " + command));
+                                        ctx.getSource().sendFeedback(Text.literal(""));
+                                    }
                                     return 1;
                                 }))));
 
@@ -48,16 +55,23 @@ public class BindCommand {
                 .then(ClientCommandManager.argument("key", StringArgumentType.string())
                         .executes(ctx -> {
                             String key = StringArgumentType.getString(ctx, "key");
-                            if (BindManager.removeBind(key)) {
-                                ctx.getSource().sendFeedback(Text.literal(""));
-                                ctx.getSource().sendFeedback(Text.literal("CmdBind"));
-                                ctx.getSource().sendFeedback(Text.literal("Bind deleted: " + key));
-                                ctx.getSource().sendFeedback(Text.literal(""));
-                            } else {
-                                ctx.getSource().sendFeedback(Text.literal(""));
-                                ctx.getSource().sendFeedback(Text.literal("CmdBind"));
-                                ctx.getSource().sendFeedback(Text.literal("Bind not found"));
-                                ctx.getSource().sendFeedback(Text.literal(""));
+                                if (key.length() > 1) {
+                                    ctx.getSource().sendFeedback(Text.literal(""));
+                                    ctx.getSource().sendFeedback(Text.literal("CmdBind"));
+                                    ctx.getSource().sendFeedback(Text.literal("Incorrect key"));
+                                    ctx.getSource().sendFeedback(Text.literal(""));
+                                } else {
+                                if (BindManager.removeBind(key)) {
+                                    ctx.getSource().sendFeedback(Text.literal(""));
+                                    ctx.getSource().sendFeedback(Text.literal("CmdBind"));
+                                    ctx.getSource().sendFeedback(Text.literal("Bind deleted: " + key));
+                                    ctx.getSource().sendFeedback(Text.literal(""));
+                                } else {
+                                    ctx.getSource().sendFeedback(Text.literal(""));
+                                    ctx.getSource().sendFeedback(Text.literal("CmdBind"));
+                                    ctx.getSource().sendFeedback(Text.literal("Bind not found"));
+                                    ctx.getSource().sendFeedback(Text.literal(""));
+                                }
                             }
                             return 1;
                         })));
